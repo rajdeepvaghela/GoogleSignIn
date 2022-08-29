@@ -4,12 +4,10 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 public class UserData implements Parcelable {
 
-    private String name, email;
-    private Uri displayPicture;
+    private final String name, email;
+    private final Uri displayPicture;
 
     UserData(String name, String email, Uri displayPicture) {
         this.name = name;

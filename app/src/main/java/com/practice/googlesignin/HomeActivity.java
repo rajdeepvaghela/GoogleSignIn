@@ -70,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setData(UserData userData) {
+        // using glide library to load the user's profile picture
         Glide.with(this)
                 .load(userData.getDisplayPicture())
                 .error(R.drawable.ic_round_account_circle_24)

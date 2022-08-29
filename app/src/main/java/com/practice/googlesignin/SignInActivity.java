@@ -28,6 +28,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private SignInButton btnSignIn;
 
+    // preparing request options to fetch email and profile
     private final GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder()
             .requestEmail()
             .requestProfile()
@@ -35,6 +36,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private GoogleSignInClient googleSignInClient;
 
+    // using ActivityResultLauncher instead of startActivityForResult function as it is deprecated
     private final ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
 
         @Override
@@ -48,6 +50,8 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        // initializing the client
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         initViews();
@@ -58,6 +62,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private void checkIfAlreadyLoggedIn() {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
+        // if account is not null that means user is already logged in
         if (account != null) {
             goToHome(account);
         }
@@ -102,6 +108,7 @@ public class SignInActivity extends AppCompatActivity {
         Log.d(TAG, "goToHome: UserData=" + userData);
 
         Intent homeIntent = new Intent(this, HomeActivity.class);
+        // passing userData object to the HomeActivity
         homeIntent.putExtra(HomeActivity.USER_DATA, userData);
         startActivity(homeIntent);
         finish();
